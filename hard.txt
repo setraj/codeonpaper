@@ -1,0 +1,9 @@
+Write complete code to clone a link list with next and random pointer.
+Convert a binary tree to Doubly link list.
+Find K largest elements in an array. Write the most efficient code.
+Write complete code for boundary traversal of a tree.
+Write complete code to find the diameter of a tree.
+Write complete code to find the Difference between sums of odd level and even level nodes of a Binary Tree.
+Convert a sorted array to balanced BST.
+Write code to print a given matrix in Spiral form.
+In a 2d matrix, some cells are obstacles and others are clear. find number of paths from 0,0 to m,n

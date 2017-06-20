@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CodeOnPaper</title>
+    <meta charset="UTF-8">
+	<meta name="author" content="your name" />
+	<meta name="description" content="" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+<script>
+     //function to read the files of questions
+     
+    function readTextFile(file)
+        {
+    "use strict";        
+    var allText, rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                allText = rawFile.responseText;
+                allText = allText.split('\n');
+            }
+        }
+    }
+    rawFile.send(null);
+    return allText;
+        }
+    //questions
+    var easy= readTextFile("easy.txt");
+    var medium = readTextFile("medium.txt");
+    var hard = readTextFile("hard.txt"); 
+    var noeQ = easy.length;
+    var nomQ = medium.length;
+    var nohQ = hard.length;
+    //no of questions in each round
+    var round=[2,3,2,2];
+    //type of questions in each round    
+    var interview = JSON.parse('{"round":[' +
+        '{"easy":"2","medium":"0","hard":"0" },' +
+        '{"easy":"2","medium":"1","hard":"0" },' +
+        '{"easy":"0","medium":"2","hard":"0" },' +
+        '{"easy":"0","medium":"1","hard":"1" }]}');
+    //keeping track of all appeared questions
+    var easyRandom=[];
+    var mediumRandom=[];
+    var hardRandom=[];      
+    var finalRound =4;
+    //function to hide the intitial content of home page & show rounds  
+    function hideContent() {   
+    var x = document.getElementById('content');
+    var rounds = document.getElementById('roundsContainer');
+        if (x.style.display === 'none') {
+        rounds.style.display = 'none';
+            x.style.display = 'block';                       
+    } else {
+        x.style.display = 'none';
+        document.getElementById('start').style.display = 'none';
+        document.getElementById('nextRound').style.display='block'; 
+        displayRounds();
+        rounds.style.display = 'block'; 
+    }
+   }
+        
+   function reset(){
+        roundNumber=1;       
+   }
+var currQ=1;  
+var sec =60;
+var min = 9;
+var time;
+var handler = function() {
+  sec--;
+  if (sec == 0) {
+    sec = 60;
+    min--;
+    if (min == -1) 
+    {
+    alert("timeout");
+    //document.getElementById('imgQ' + currQ).src = "failed.jpg";
+    min = 0;
+    sec =0;
+    myStopFunction();
+    }
+  }
+  document.getElementById("time").innerHTML = (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);
+}
+function myStopFunction(){
+  clearInterval(time);
+}
+
+//funtion to display the rounds.
+    function displayRounds(){
+       if(typeof roundNumber == 'undefined')
+         {  roundNumber = 1; 
+            
+         }
+       if(roundNumber > finalRound){
+         document.getElementById("roundNo").innerHTML="";   
+         document.getElementById("qTable").innerHTML = "Interview Completed!!";
+         document.getElementById('nextRound').style.display='none'; 
+         document.getElementById('start').style.display = 'block';
+         reset();
+         clearInterval(time);
+              sec =60;
+              min = 9;
+         document.getElementById("time").style.display = 'none';    
+         return;
+       }
+    
+       // handler();
+        
+         if(typeof time === 'undefined')
+         time = setInterval(handler, 1000);
+         else{
+              clearInterval(time);
+              sec =60;
+              min = 9;
+              time = setInterval(handler, 1000);
+              document.getElementById("time").style.display = 'block';  
+             
+         }    
+        
+       var table = document.getElementById("qTable");
+       table.innerHTML = "";
+       var noOFques =0;
+       var roundHead = document.getElementById("roundNo");
+       roundHead.innerHTML = "Round " + roundNumber;
+         var esy = interview.round[roundNumber-1].easy;
+         var med = interview.round[roundNumber-1].medium;
+         var hrd = interview.round[roundNumber-1].hard;
+        var ques =1;
+        //show easy level questions
+        while(esy--){
+        if(easyRandom.length >=noeQ) 
+        {
+        alert("Reset Questions!!");
+		break;
+        }
+       var ran = Math.floor((Math.random() * noeQ) + 1);
+       if( easyRandom.indexOf(ran-1) === -1)
+       {
+        easyRandom.push(ran-1);
+        //quesList.push(ran); 
+        //add question
+               var row = table.insertRow(-1);
+               var question = row.insertCell(0);
+               var status = row.insertCell(1);
+               question.innerHTML = "<p id="+"q"+ques + ">Q"+ques +": "+ easy[ran-1] + "</p>";
+               status.innerHTML = '<img id="' +'imgQ'+ques +'"'+'src=\'tick_black.png\' height="25px" width="25px" style=" box-shadow: 0px 1px 2px #666" onclick=showQues(' + roundNumber + ',' + ques + ')>' ;
+               if(ques >1) 
+               document.getElementById('imgQ' + ques).style.pointerEvents = 'none';    
+           
+           ques++;
+       }
+       else esy++; 
+       }
+        //show medium level questions
+        while(med--){
+    ///alert(mediumRandom);
+    if(mediumRandom.length >=nomQ) 
+        {
+        alert("Reset Questions!!");
+		break;
+        }
+        
+    	var ran = Math.floor((Math.random() * nomQ) + 1);
+       if(mediumRandom.indexOf(ran-1) === -1)
+       {
+           mediumRandom.push(ran-1);
+       //quesList.push(ran);
+        //add question
+           var row = table.insertRow(-1);
+               var question = row.insertCell(0);
+               var status = row.insertCell(1);
+                question.innerHTML = "<p id="+"q"+ques + ">Q"+ques +": "+ medium[ran-1]+ "</p>";
+               status.innerHTML = '<img id="' +'imgQ'+ques +'"'+'src=\'tick_black.png\' height="25px" width="25px" style=" box-shadow: 0px 1px 2px #666" onclick=showQues(' + roundNumber + ',' + ques + ')>' ;
+           if(ques >1) 
+               document.getElementById('imgQ' + ques).style.pointerEvents = 'none';    
+          
+           ques++;
+       }
+       else med++; 
+    }
+    // show hard level questions
+    while(hrd--){
+       if(hardRandom.length >=nohQ) 
+        {
+        alert("Reset Questions!!");
+		break;
+        }
+    	var ran = Math.floor((Math.random() * nohQ) + 1);  
+       if(hardRandom.indexOf(ran-1) === -1)
+       {
+           hardRandom.push(ran-1);
+            //quesList.push(ran);
+           //add question
+            var row = table.insertRow(-1);
+               var question = row.insertCell(0);
+               var status = row.insertCell(1);
+               
+                question.innerHTML = "<p id="+"q"+ques + ">Q"+ques +": "+ hard[ran-1]+ "</p>";
+               status.innerHTML = '<img id="' +'imgQ'+ques +'"'+'src=\'tick_black.png\' height="25px" width="25px" style=" box-shadow: 0px 1px 2px #666" onclick=showQues(' + roundNumber + ',' + ques + ')>' ;
+           if(ques >1) 
+               document.getElementById('imgQ' + ques).style.pointerEvents = 'none';    
+           
+           ques++;
+       }
+       else hrd++; 
+    }
+      
+    roundNumber++;   
+    }
+    //set the visibility of questions
+    function showQues( roundNumber ,  quesNo ){
+        clearInterval(time);
+        
+        var qn =  quesNo+1;
+        currQ = quesNo;
+       // if(document.getElementById('q'+quesNo).style.opacity  < 1)
+            // return;
+       document.getElementById('imgQ' + quesNo).src = "tick_green.png";
+       //document.getElementById('imgQ' + quesNo).style.opacity = 0.05;    
+       document.getElementById('q' + quesNo).style.opacity = 0.05;    
+        if(quesNo == round[roundNumber-1]){   
+            return;}
+        //restart timer
+        sec=60; min=9;
+        //handler();
+        time = setInterval(handler, 1000);
+        
+        document.getElementById('q'+qn).style.opacity = 1;
+        document.getElementById('imgQ' + qn).style.pointerEvents = 'auto';    
+    }   
+ </script>
+
+
+	<div id="page">
+		<div id="logo" >
+			
+            <img id="logoPic" src="logo.jpg" height= "70px">
+		</div>
+		<div id="nav">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>	
+		</div>
+		<div id="content">
+			<h2>Pen is mighty then keyboard!!</h2>
+			<p>
+				This platform prepares you for personal interviews, where you are expected to write the code on paper/whiteboard.
+			</p>
+			<p> 
+               The whole interview consists of four rounds. Each round has different number of questions, which vary from easy to hard level.<br><br>
+               Round 1 : 2 Easy level questions.10 mins each<br>
+               Round 2 : 2 Easy level questions(10 mins each). 1 medium level question(15 mins)<br>
+               Round 3 : 2 medium level questions.15 mins each<br>
+               Round 4 : 1 medium level(10 mins) and 1 hard level(20 mins) question    
+                
+                   
+			</p>
+		</div>
+        <div id="roundsContainer">
+            <p id="time">  </p>
+            <div id="rounds">
+                <h2 id="roundNo">Round 1</h2>
+                <table id="qTable" >
+                    
+                </table>
+            </div>
+            <div >
+            <p id="nextRound"  onclick="displayRounds()">Next</p>
+        </div>
+        </div>
+        <div id="start"  onclick="hideContent()">
+            <p>Start</p>
+        </div>
+		<div id="footer">
+			<p>
+				Webpage made for students 
+			</p>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+Write production level code for Quick Sort algorithm.
+Write production full code for Merge Sort algorithm.
+Write full code to check if a given tree is BST or Not.
+Write production level code to implement LRU.
+Write complete code to reverse a singly link list.
+Write complete code to find and remove loop in a given link list.
+Write complete code to reverse a link list in group of given size.
+Write complete code to add two numbers represented by link lists. e.g 1->2->3->4 + 4->5 = 5->7->3->4
+Write complete code to get the Nth node in a link list.
+Write complete code to pair wise swap elements of a link list by changing the links.
+Write efficient code to find the minimum difference between any pair in given unsorted array. e.g A{2,10,9,25} return 1(10-9).
+Write code to print node at K distance from the root.
+Write a function that returns true if the given Binary Tree is SumTree else false. A SumTree is a Binary Tree where the value of a node is equal to sum of the nodes present in its left subtree and right subtree. An empty tree is SumTree and sum of an empty tree can be considered as 0. A leaf node is also considered as SumTree.
+Write complete code to check if two trees are mirror.
+Write complete code to print all nodes in a tree which don't have siblings.
+Given a Binary Tree having positive and negative nodes, find the maximum sum level in it.
+Write a complete code to print the left view of a binary tree.
+Write a complete code to print the Right view of a binary tree.
+Find inorder successor in a BST.
+The cost of a stock on each day is given in an array, find the max profit that you can make by buying and selling in those days

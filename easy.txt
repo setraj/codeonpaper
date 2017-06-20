@@ -1,0 +1,16 @@
+Write an efficient code, Given an array A and a number x, check for pair in A with sum as x.
+Write an efficient code, Given an array of positive integers. All numbers occur even number of times except one number which occurs odd number of times. Find the number in O(n) time & constant space.
+Write the complete code with all test cases to delete an element from a link list, only the reference for node to be deleted is given.
+Write the complete code to find the height of a tree.
+Write the complete code to return the Run Length Encoding of a string. e.g for string "aabbcccdd", return "2a2b3c2d"
+Write the complete code to check if a link list is Palindrom or not.
+Write a recursive function to print reverse of a Linked List.
+Write a program to print all the LEADERS in the array. An element is leader if it is greater than all the elements to its right side, And the rightmost element is always a leader. For example in the array {15, 16, 3, 2, 4, 1}, leaders are 16, 4 and 1.
+Write the complete code to find the middle of a link list.
+Write the complete code to find LCA in a Binary tree.
+Write the complete code to find LCA in a Binary Search tree.
+Given an array of integers which is initially increasing and then decreasing, find the maximum value in the array.
+Given two binary search trees with n and n-1 nodes respectively with all elements same except one, find the odd node.
+Given a string of any length, check if first half of the string (n/2+1 in case of odd length) is an anagram of the second half of the string or not.
+In a 2d matrix of m X n, find the maximum sum path from (0,0) to (m,n).
+Given an array and an integer k, find the maximum for each and every contiguous subarray of size k.
